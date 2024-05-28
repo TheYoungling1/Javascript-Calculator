@@ -1,0 +1,96 @@
+body {
+    background: #212832;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    gap: 200px;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Roboto", sans-serif;
+}
+
+.results {
+    background: #1a1e24;
+    color: #dcd9d9;
+    width: 1400px;  /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 60px;
+    font-weight: bold;
+    border-radius: 12px 12px 0 0;
+    padding-top: 10px;
+    box-sizing: border-box;
+    position: relative; /* Positioning context for absolute positioning */
+}
+
+#history {
+    font-size: 40px;
+    font-weight: bolder;
+    color: #dcd9d9;
+    align-self: center;
+    justify-content: flex-start;
+    padding-top: 0px;
+    margin-bottom: 10px;
+}
+
+
+.input_panel {
+    background: black;
+    width: 1400px;  /* Adjust the width as needed */
+    height: 500px; /* Adjust the height as needed */
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid black;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px; 
+    /* Account for the imbalance in margin caused by the 10px gaps sat in grid (top and bottom) */
+    box-sizing: border-box;
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;   /* Ensure it fills the panel */
+    height: 100%;  /* Ensure it fills the panel */
+}
+
+.input, .number {
+    background: #212832;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Adjust font size as needed */
+    font-weight: bold;
+    color: #dcd9d9;
+    border-radius: 12px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 0;
+}
+
+.equals {
+    /* a grid tile of the size of 2 tiles starting from the botttom of row 4 column 2 */
+    grid-column: 2 / span 2;
+    grid-row: 4;
+    background: #f97a43;
+}
+
+#clear {
+    grid-column: 5;
+    grid-row: 1 / span 4;
+    background: #f97a43;
+}
