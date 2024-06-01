@@ -1,52 +1,101 @@
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    const buttons = document.querySelectorAll(".input, .number");
-    const results = document.querySelector("#calculation");
-    const history = document.querySelector("#history")
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
+        this.previousOperandTextElement = previousOperandTextElement
+        this.currentOperandTextElement = currentOperandTextElement
+        this.clear()
+    }
 
-    let first_term = "";
-    let operator = "";
-    let second_term = "";
+    clear () {
+        this.currentOperand = ''
+        this.previousOperand = ''
+        this.operator = undefined
+      }
+    
+    appendNumber (number) {
+        this.currentOperand = this.currentOperand.toString() + number.toString();
+    }
 
-    buttons.forEach(button => {
-        button.addEventListener("click", function(e) {
-            const buttonId = e.target.id;
-            if (buttonId) {
-                results.textContent += buttonId;
-            }
-            if (buttonId === "clear") {
-                results.textContent = " ";
-                history.textContent = " ";
-            }
-            if (buttonId === "+" || buttonId === "-" || buttonId === "x" || buttonId === "/") {
-                first_term = results.textContent.slice(0, -1);
-                operator = buttonId;
-            } 
-            else if (buttonId === "=") {
-                const terms = results.textContent.split(operator);
-                second_term = terms[1].slice(0, -1);
-                history.textContent = first_term + operator + second_term + "=";
-                results.textContent = calculate(first_term, second_term, operator);
-            }
-        });
-    });
-});
+    chooseOperations (operator) {
+        // If no operator chosen
+        if (this.currentOperand === '') {
+            return
+        }
 
+        this.operator = operator;
+        // Move the expression before up the div as the first part of the operand
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = ''
+    }
 
-function calculate (first_term, second_term, operator) {
-    let result = 0;
-    switch(operator) {
-        case "+" :
-            result = parseInt(first_term) + parseInt(second_term);
-            return result;
-        case "-" :
-            result = parseInt(first_term) - parseInt(second_term);
-            return result;
-        case "x" :
-            result = parseInt(first_term) * parseInt(second_term);
-            return result;
-        case "/" :
-            result = parseInt(first_term) / parseInt(second_term);
-            return result;
+    compute() {
+        let computation
+        const prev = parseFloat(this.previousOperand)
+        const current = parseFloat(this.currentOperand)
+        if (isNaN(prev) || isNaN(current)) return
+        switch (this.operator) {
+          case '+':
+            computation = prev + current
+            break
+          case '-':
+            computation = prev - current
+            break
+          case 'x':
+            computation = prev * current
+            break
+          case '÷':
+            computation = prev / current
+            break
+          default:
+            return
+        }
+        this.currentOperand = computation
+        this.operator = undefined
+        this.previousOperand = ''
+    }
+
+    updateDisplay() {
+        this.currentOperandTextElement.innerText = this.currentOperand
+        if (this.operator != null) {
+            this.previousOperandTextElement.innerText =
+            `${this.previousOperand} ${this.operator}`
+        } else {
+            this.previousOperandTextElement.innerText = ''
+        }
     }
 }
+
+const numberButtons = document.querySelectorAll('.number')
+const operationButtons = document.querySelectorAll('.input')
+const equalsButton = document.querySelector('.equals')
+const allClearButton = document.querySelector('#clear')
+const previousOperandTextElement = document.querySelector('#history')
+const currentOperandTextElement = document.querySelector('#calculation')
+
+
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      calculator.appendNumber(button.innerText)
+      calculator.updateDisplay()
+    })
+ })
+
+allClearButton.addEventListener('click', button => {
+    calculator.clear()
+    calculator.updateDisplay()
+})
+
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperations(button.innerText)
+        calculator.updateDisplay()
+    })
+})
+
+equalsButton.addEventListener('click', button => {
+    calculator.compute()
+    calculator.updateDisplay()
+})

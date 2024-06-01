@@ -17,34 +17,27 @@ body {
     background: #1a1e24;
     color: #dcd9d9;
     width: 1400px;  /* Adjust the width as needed */
-    height: 150px; /* Adjust the height as needed */
+    height: 150px; /* Adjust the height as needed */ 
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;
-    font-size: 60px;
-    font-weight: bold;
-    border-radius: 12px 12px 0 0;
-    padding-top: 10px;
-    box-sizing: border-box;
-    position: relative; /* Positioning context for absolute positioning */
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 #history {
-    font-size: 40px;
-    font-weight: bolder;
-    color: #dcd9d9;
-    align-self: center;
-    justify-content: flex-start;
-    padding-top: 0px;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
 }
 
+#calculation {
+    font-size: 2.5rem;
+
+}
 
 .input_panel {
     background: black;
-    width: 1400px;  /* Adjust the width as needed */
-    height: 500px; /* Adjust the height as needed */
     position: fixed;
     bottom: 40px;
     left: 50%;
@@ -54,21 +47,23 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px; 
-    /* Account for the imbalance in margin caused by the 10px gaps sat in grid (top and bottom) */
+    padding: 20px;
     box-sizing: border-box;
+    width: 1400px;
+    height: 500px;
 }
 
 .numbers {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(4, auto);
     gap: 20px;
-    width: 100%;   /* Ensure it fills the panel */
-    height: 100%;  /* Ensure it fills the panel */
+    width: 100%; /* Auto width based on content */
+    height: 100%; /* Auto height based on content */
 }
 
-.input, .number {
+
+.input, .number, .clear, .equals {
     background: #212832;
     display: flex;
     justify-content: center;
@@ -82,7 +77,7 @@ body {
     border: 0;
 }
 
-.equals {
+#equal {
     /* a grid tile of the size of 2 tiles starting from the botttom of row 4 column 2 */
     grid-column: 2 / span 2;
     grid-row: 4;
