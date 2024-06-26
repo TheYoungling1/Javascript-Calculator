@@ -21,7 +21,12 @@ class Calculator {
         if (this.currentOperand === '') {
             return
         }
-
+        if (this.previousOperand !== '') {
+            this.compute()
+        }
+        // The above functions kinda precalculates the previous expressions if we want to add another 
+        // operation into it. But the bottom 3 lines resets the calculations for the next cycle.
+        // i.e. move the current to previous, then empty the current etc....
         this.operator = operator;
         // Move the expression before up the div as the first part of the operand
         this.previousOperand = this.currentOperand;
@@ -30,9 +35,12 @@ class Calculator {
 
     compute() {
         let computation
+        // Gets the previous and current operands (numbers to do calcs with)
         const prev = parseFloat(this.previousOperand)
         const current = parseFloat(this.currentOperand)
+        // If any of the fields is empty, i.e. both fields must be filled
         if (isNaN(prev) || isNaN(current)) return
+
         switch (this.operator) {
           case '+':
             computation = prev + current
@@ -90,6 +98,7 @@ allClearButton.addEventListener('click', button => {
 
 operationButtons.forEach(button => {
     button.addEventListener('click', () => {
+        // Operation chosen = the inner text of the button
         calculator.chooseOperations(button.innerText)
         calculator.updateDisplay()
     })
